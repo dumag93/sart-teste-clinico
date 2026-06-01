@@ -13,16 +13,12 @@ O programa realiza:
 
 ORGANIZAÇÃO:
 O script busca todos os arquivos .json na pasta raiz. Para cada arquivo encontrado:
-- Cria uma subpasta com o nome do sujeito.
+- Cria uma subpasta com o mesmo nome do arquivo .json.
 - Gera as figuras e o relatório dentro desta subpasta.
 - Move o arquivo .json original para dentro da subpasta, mantendo a raiz organizada.
 
 COMO USAR:
 1. Coloque os arquivos .json a serem processados na mesma pasta que este script.
 2. Certifique-se de ter as bibliotecas instaladas (pandas, matplotlib, seaborn).
-3. Execute o arquivo "Análise Estatística SART_2.py".
-4. Os resultados estarão disponíveis nas pastas criadas individualmente para cada sujeito.
-
-REQUISITOS:
-- Python 3.x
-- Bibliotecas: pandas, matplotlib, seaborn
+3. Execute o arquivo "Análise Estatística SART.py".
+4. Os resultados estarão disponíveis nas pastas criadas individualmente para cada arquivo .json.
