@@ -1,1 +1,1 @@
-# sart-teste-clinico
+# GoNogo-Task-SART
