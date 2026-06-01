@@ -1,6 +1,0 @@
-=== RELATÓRIO: Teste 2 ===
-Total de Trials: 135
-Erros de Comissão: 4 (26.67%)
-Erros de Omissão: 0 (0.00%)
-RT Médio: 206.64 ms
-Artefatos: 2 (1.67%)
