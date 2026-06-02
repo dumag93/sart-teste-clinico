@@ -1,48 +1,46 @@
-FERRAMENTA: Análise Estatística SART
-====================================
+FERRAMENTA: Análise Estatística SART - Padrão Ouro em Neurociência Cognitiva
+=============================================================================
 
 DESCRIÇÃO:
-
-Este script automatiza o processamento, limpeza, análise estatística e geração de relatórios visuais para dados da Tarefa de Atenção Sustentada (SART). A versão atual foca em rigor metodológico, oferecendo auditoria completa da amostra e métricas avançadas de variabilidade temporal.
+Esta ferramenta automatiza o processamento, a filtragem rigorosa, a análise estatística e a geração de relatórios visuais para dados da Tarefa de Atenção Sustentada (SART). A versão atual foi desenvolvida com foco no rigor metodológico exigido para investigação científica de alto impacto e avaliação neuropsicológica clínica avançada. O sistema incorpora agora modelação Ex-Gaussiana, detecção dinâmica de fadiga e efeitos sequenciais (PIS).
 
 O QUE O PROGRAMA REALIZA:
 
-1. Varredura e leitura automática de arquivos .json na pasta raiz.
-2. Identificação automática do nome do participante nos metadados.
-3. Criação de pastas individualizadas com carimbo de data (Nome_Do_Paciente_DD-MM-AAAA).
-4. Proteção de histórico: numeração sequencial (_1, _2...) para testes realizados no mesmo dia.
-5. Triagem e Classificação: Separação rigorosa de Artefatos, Comissão (Impulsividade), Omissão (Desatenção) e Respostas Go.
-6. Auditoria de Amostra: Cálculo explícito de N total, N de artefatos e N de trials válidos por condição (Go/No-Go).
-7. Relatórios Visuais de Alta Resolução:
-   - SART_Fig1_Comportamento.png: Perfil de erros com caixa de auditoria de filtros integrada.
-   - SART_Fig2_TempoReacao.png: Histograma de RT com Média, Variabilidade (σ) e Coeficiente de Variação (CV).
-8. Sumário Analítico Textual (Relatorio_SART.txt):
-   - Estrutura completa da amostra.
-   - Métricas comportamentais (porcentagens baseadas em N válidos).
-   - Métricas de RT detalhadas (Min, Max, Médio, σ, CV).
+1. Varredura e leitura automática de ficheiros .json na pasta raiz.
+2. Identificação automática do participante e organização em pastas com carimbo de data.
+3. Auditoria de Amostra: Separação rigorosa entre artefatos temporais (respostas antecipatórias < 100ms) e trials estritamente válidos (Go/No-Go).
+4. Modelação Ex-Gaussiana: Extração dos parâmetros Mu (velocidade real de processamento) e Tau (marcador de lapsos atencionais e instabilidade), essenciais como biomarcadores clínicos.
+5. Análise de Efeitos Sequenciais (PIS): Cálculo da Lentificação Pós-Inibitória, medindo o custo cognitivo real (em milissegundos) para realocar a atenção após um estímulo de inibição bem-sucedido.
+6. Análise de Fadiga Cognitiva (Time-on-Task): Utilização de suavização Gaussiana móvel para detetar, de forma não-arbitrária, o ponto exato de inflexão no declínio do desempenho atencional.
+
+RELATÓRIOS VISUAIS DE ALTA RESOLUÇÃO:
+
+- SART_Fig1_Comportamento.png: Perfil de erros (Comissão, Omissão, Antecipação) com caixa de auditoria de filtros integrada.
+- SART_Fig2_TempoReacao.png: Distribuição de RT com histograma KDE, Média, Variabilidade (σ) e anotações dos parâmetros Ex-Gaussianos (Tau e Mu).
+- SART_Fig3_FadigaDinamica.png: Curva de decréscimo atencional suavizada com marcação visual do ponto de inflexão de fadiga.
+- SART_Fig4_CustoInibicao.png: Boxplot com stripplot (pontos reais) comparando o RT em contexto de "Cruzeiro" vs "Recuperação" (PIS).
+
+SUMÁRIO ANALÍTICO TEXTUAL (Relatorio_SART.txt):
+
+- Estrutura detalhada da amostra auditada (Total vs. Válidos).
+- Métricas comportamentais (percentagens calculadas estritamente sobre trials válidos).
+- Métricas de RT descritivas (Mín, Máx, μ, σ, CV).
+- Marcadores Atencionais Ex-Gaussianos (Tau e Mu).
+- Análise de PIS: Delta (em ms) do custo de inibição.
+- Dinâmica de Fadiga: Ponto de inflexão e Delta de piora clínica.
+- *NOVO*: Notas Metodológicas incluídas diretamente no relatório clínico para garantir transparência científica em cada bloco de cálculo.
 
 ESTRUTURA DE ORGANIZAÇÃO DE SAÍDA:
+Para cada ficheiro .json processado:
 
-Para cada arquivo .json processado:
 - Cria a pasta: "Nome_Do_Paciente_DD-MM-AAAA".
-- Salva o "Relatorio_SART.txt" com o resumo clínico detalhado.
-- Salva os gráficos "SART_Fig1_Comportamento.png" e "SART_Fig2_TempoReacao.png".
-- Renomeia e move o arquivo bruto original para: "SART_DadosBrutos_Nome_Do_Paciente_Data_Versao.json".
+- Guarda os 4 gráficos científicos padronizados.
+- Guarda o "Relatorio_SART.txt" detalhado.
+- Move o ficheiro bruto original para a mesma pasta sob o nome: "SART_DadosBrutos_Nome_Do_Paciente.json".
 
-COMO USAR:
+COMO UTILIZAR:
 
-1. Baixe o arquivo de dados bruto (formato .json) gerado pelo seu teste.
-2. Mova o arquivo bruto para a pasta onde o script "Análise Estatística SART.py" está localizado.
-3. Certifique-se de ter as bibliotecas instaladas (pandas, matplotlib, seaborn).
-4. Execute o arquivo "Análise Estatística SART.py".
-5. A análise será gerada automaticamente dentro da pasta do paciente.
-
-NOTAS CLÍNICAS:
-
-- O Coeficiente de Variação (CV) apresentado é o padrão-ouro para análise de instabilidade da atenção sustentada.
-- A auditoria de "N" (tamanho da amostra) em todos os outputs garante total transparência sobre a fidelidade do dado analisado.
-
-REQUISITOS DE SISTEMA:
-
-- Python 3.x
-- Bibliotecas: pandas, matplotlib, seaborn.
+1. Mova os ficheiros .json brutos gerados pela tarefa SART para a mesma pasta onde este script se encontra.
+2. Certifique-se de ter as bibliotecas instaladas no seu ambiente Python (pandas, matplotlib, seaborn, numpy, scipy).
+3. Execute o script "Análise Estatística SART.py".
+4. Os relatórios e gráficos serão gerados automaticamente dentro das pastas individualizadas.
